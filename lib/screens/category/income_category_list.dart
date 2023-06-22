@@ -25,7 +25,7 @@ class IncomeCategoryList extends StatelessWidget {
             );
           },
           separatorBuilder: (ctx, index) {
-            return SizedBox(height: 5);
+            return const SizedBox(height: 5);
           },
           itemCount: newList.length,
         );

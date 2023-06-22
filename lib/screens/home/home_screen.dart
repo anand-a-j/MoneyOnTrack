@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_management_app/screens/add_transaction/add_transaction_screen.dart';
 import 'package:money_management_app/screens/category/category_screen.dart';
 import 'package:money_management_app/screens/home/widgets/bottom_navigation.dart';
 import 'package:money_management_app/screens/transactions/transaction_screen.dart';
@@ -37,6 +38,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           if (SelectedIndexNotifier.value == 0) {
             print("ADD Transactions");
+            Navigator.of(context).pushNamed(AddTransactionScreen.routeName);
           } else {
             print("Add category");
             showCategoryAddPopup(context);
