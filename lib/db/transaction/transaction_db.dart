@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:money_management_app/model/transaction/transaction_model.dart';
 
-// DB name
+// Database name
 const TRANSACTION_DB_NAME = 'transacton-db';
 
 abstract class TransactionDbFunctions {
   Future<void> addTransaction(TransactionModel obj);
-  Future<List<TransactionModel>> getTransactions(); //--
+  Future<List<TransactionModel>> getTransactions();
+  Future<void> deleteTransaction(String id);
 }
 
 class TransactionDB implements TransactionDbFunctions {
@@ -41,5 +42,12 @@ class TransactionDB implements TransactionDbFunctions {
   Future<List<TransactionModel>> getTransactions() async {
     final _db = await Hive.openBox<TransactionModel>(TRANSACTION_DB_NAME);
     return _db.values.toList();
+  }
+
+  @override
+  Future<void> deleteTransaction(String id) async {
+    final _db = await Hive.openBox<TransactionModel>(TRANSACTION_DB_NAME);
+    await _db.delete(id);
+    refresh();
   }
 }
