@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:money_management_app/model/category/category_model.dart';
 import 'package:money_management_app/model/transaction/transaction_model.dart';
 
 // Database name
@@ -24,6 +25,10 @@ class TransactionDB implements TransactionDbFunctions {
   ValueNotifier<List<TransactionModel>> transactionsListListener =
       ValueNotifier([]);
 
+  ValueNotifier<double> incomeNotifer = ValueNotifier(0);
+  ValueNotifier<double> expenseNotifer = ValueNotifier(0);
+  ValueNotifier<double> balanceNotifer = ValueNotifier(0);
+
   @override
   Future<void> addTransaction(TransactionModel obj) async {
     final _db = await Hive.openBox<TransactionModel>(TRANSACTION_DB_NAME);
@@ -31,10 +36,28 @@ class TransactionDB implements TransactionDbFunctions {
   }
 
   Future<void> refresh() async {
+    incomeNotifer.value = 0;
+    expenseNotifer.value = 0;
+    balanceNotifer.value = 0;
+
     final list = await getTransactions();
     list.sort((first, second) => second.date.compareTo(first.date));
     transactionsListListener.value.clear();
     transactionsListListener.value.addAll(list);
+
+    await Future.forEach(list, (TransactionModel obj) {
+      if (obj.type == Categorytype.income) {
+        incomeNotifer.value += obj.amount;
+      } else {
+        expenseNotifer.value += obj.amount;
+      }
+      balanceNotifer.value = incomeNotifer.value - expenseNotifer.value;
+    });
+
+    incomeNotifer.notifyListeners();
+    expenseNotifer.notifyListeners();
+    balanceNotifer.notifyListeners();
+
     transactionsListListener.notifyListeners();
   }
 

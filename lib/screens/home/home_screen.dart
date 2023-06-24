@@ -3,7 +3,6 @@ import 'package:money_management_app/screens/add_transaction/add_transaction_scr
 import 'package:money_management_app/screens/category/category_screen.dart';
 import 'package:money_management_app/screens/home/widgets/bottom_navigation.dart';
 import 'package:money_management_app/screens/transactions/transaction_screen.dart';
-
 import '../category/category_add_popup.dart';
 
 class HomeScreen extends StatelessWidget {
