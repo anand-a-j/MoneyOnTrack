@@ -16,7 +16,7 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
     Hive.registerAdapter(CategoryModelAdapter());
   }
-  
+
   if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
     Hive.registerAdapter(TransactionModelAdapter());
   }
@@ -30,15 +30,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Money Manager',
+      title: 'MoneyOnTrack - A Money Managment Application',
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 121, 58, 183)),
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 108, 58, 183)),
         useMaterial3: true,
       ),
       home: HomeScreen(),
       routes: {
-        AddTransactionScreen.routeName:(ctx) => const AddTransactionScreen(),
+        AddTransactionScreen.routeName: (ctx) => const AddTransactionScreen(),
       },
     );
   }

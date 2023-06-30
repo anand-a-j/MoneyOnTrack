@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "MONEY MANAGER",
+          "MoneyOnTrack",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(255, 153, 57, 200),
